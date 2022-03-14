@@ -1,0 +1,163 @@
+$purple: #ad1fea;
+$hoverpurple: #C75AF6;
+$cobalt: #4661E6;
+$hovercobalt: #7C91F9;
+$darknavy: #373F68;
+$white: #FFFFFF;
+$lilac: #F2F4FE;
+$hoverlilac: #CFD7FF;
+$gray: #F7F8FD;
+$navy: #3A4374;
+$hovernavy: #647196;
+$peach: #F49F85;
+$brightblue: #62BCFA;
+$red: #D73737;
+$hoverred: #e98888;
+
+html, body {
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  line-height: 23px;
+  background-color: $lilac;
+  color: $navy;
+  h1 {
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: -0.33;
+  }
+  
+  h2 {
+    font-size: 20px;
+    line-height: 29px;
+    letter-spacing: -.25;
+  }
+  
+  h3 {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -.25;
+  }
+  h4 {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.20;
+  }
+}
+
+button {
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+  min-width: 158px;
+  color: $lilac;
+}
+
+.submitBtn {
+  background-color: $purple;
+  :hover {
+    background-color: $hoverpurple;
+  }
+}
+
+.editBtn {
+  background-color: $cobalt;
+  :hover {
+    background-color: $hovercobalt;
+  };
+}
+
+.cancelBtn {
+  background-color: $navy;
+  :hover {
+    background-color: $hovernavy;
+  }
+}
+
+.deleteBtn {
+  background-color: $red;
+  :hover {
+    background-color: $hoverred;
+  }
+}
+
+.voteBtn {
+  background-color: $lilac;
+  :hover {
+    background-color: $hoverlilac;
+  }
+  :active {
+    background-color: $cobalt;
+  }
+
+}
+
+input {
+  background-color: $gray;
+  color: $navy;
+  border-radius: 5px;
+  :focus {
+    border: 1px solid $cobalt;
+  }
+  :invalid {
+    border: 1px solid $red;
+  }
+}
+
+select {
+  background-color: $gray;
+  color: $navy;
+  border-radius: 5px;
+  :focus {
+    border: 1px solid $cobalt;
+  }
+  :after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: $cobalt transparent transparent transparent;
+  }
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-right: 30px;
+  color: $white;
+  .user {
+    color: $lilac;
+    background-color: $purple;
+  }
+  .category {
+    background-color: $white;
+  }
+}
+
+.feedbackContainer {
+  display: flex;
+  flex-direction: column;
+  .navBar {
+    background-color: $darknavy;
+    color: $white;
+    padding: 10px;
+    align-items: center;
+    border-radius: 5px;
+  }
+  .feedbackItem {
+    background-color: $white;
+    color: $darknavy;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  .emptyState {
+    background-color: $white;
+    color: $darknavy;
+    margin: auto;
+    text-align: center;
+  }
+}
