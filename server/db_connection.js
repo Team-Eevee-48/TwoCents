@@ -1,6 +1,7 @@
+require("dotenv").config();
 const { Pool } = require("pg");
 
-const PG_URI = ""; //insert URI here
+const PG_URI = process.env.URI_CONNECTION;
 
 const pool = new Pool({
     connectionString: PG_URI,

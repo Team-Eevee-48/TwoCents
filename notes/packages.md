@@ -1,5 +1,6 @@
 React
 Redux
+redux-devtools-extension
 react-dom
 React Router Dom
 webpack

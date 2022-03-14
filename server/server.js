@@ -1,11 +1,15 @@
 const express = require("express");
-
 const app = express();
+const db = require("./db_connection.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/placeholder", require("./routers/placeholder.js"));
+
+db.query(`SELECT * FROM test`, null, (err, res) => {
+    console.log(res.rows[0]);
+});
 
 // CATCH-ALL ERROR HANDLER
 app.use((req, res) => {
@@ -25,6 +29,6 @@ app.use((err, req, res, next) => {
     return res.status(errorObj.status).json(errorObj.message);
 });
 
-module.exports = app.listen(3000, () => {
+app.listen(3000, () => {
     console.log("Server Listening on 3000");
 });
