@@ -1,4 +1,5 @@
 import React from 'react';
+import AddFeedbackBtn from './AddFeedbackBtn.jsx';
 
 const EmptyState = () => {
   return (
@@ -10,7 +11,7 @@ const EmptyState = () => {
         We love hearing about new ideas to improve our app.
       </p>
       <br/>
-      <button className='submitBtn'>+ Add Feedback</button>
+      <AddFeedbackBtn />
     </div>
   )
 };

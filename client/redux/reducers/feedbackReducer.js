@@ -14,13 +14,13 @@ const feedbackReducer = (state = initialState, action) => {
   const tags = [...state.tags]
 
   switch (action.type) {
-  //   case types.UP_VOTE: {
-  //     votes = ++state.votes
-  //     return {
-  //       ...state,
-  //       votes,
-  //     };
-  //   }
+    case types.UP_VOTE: {
+      votes = ++state.votes
+      return {
+        ...state,
+        votes,
+      };
+    }
 
     default:
       return state;

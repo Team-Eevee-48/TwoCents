@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const mapStateToProps = state => ({
-  votes: state.votes,
-})
-
 const mapDispatchToProps = dispatch => ({
   upVoteActionCreator: () => dispatch(actions.upVoteActionCreator()),
 })
