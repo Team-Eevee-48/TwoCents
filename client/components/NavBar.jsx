@@ -1,9 +1,12 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import AddFeedbackBtn from './AddFeedbackBtn.jsx';
 
 const NavBar = () => {
+
   return(
     <div className='navBar'>Suggestions
-      <button className='submitBtn'>+ Add Feedback</button>
+      <AddFeedbackBtn />
     </div>
   )
 };

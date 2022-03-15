@@ -1,0 +1,3 @@
+export const UP_VOTE = 'UP_VOTE';
+export const ADD_TAG_TO_FILTER = 'ADD TAG TO FILTER';
+export const REMOVE_TAG_FROM_FILTER = 'REMOVE TAG FROM FILTER';
