@@ -45,16 +45,28 @@ html, body {
   }
 }
 
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 94px;
+}
+
 button {
   align-items: center;
   border-radius: 10px;
   padding: 10px;
   min-width: 158px;
+  min-height: 44px;
   color: $lilac;
+  :hover {
+    cursor: pointer;
+  }
 }
 
 .submitBtn {
   background-color: $purple;
+  border: none;
   :hover {
     background-color: $hoverpurple;
   }
@@ -62,6 +74,7 @@ button {
 
 .editBtn {
   background-color: $cobalt;
+  border: none;
   :hover {
     background-color: $hovercobalt;
   };
@@ -69,6 +82,7 @@ button {
 
 .cancelBtn {
   background-color: $navy;
+  border: none;
   :hover {
     background-color: $hovernavy;
   }
@@ -76,6 +90,7 @@ button {
 
 .deleteBtn {
   background-color: $red;
+  border: none;
   :hover {
     background-color: $hoverred;
   }
@@ -83,6 +98,7 @@ button {
 
 .voteBtn {
   background-color: $lilac;
+  border: none;
   :hover {
     background-color: $hoverlilac;
   }
@@ -96,6 +112,7 @@ input {
   background-color: $gray;
   color: $navy;
   border-radius: 5px;
+  height: 48px;
   :focus {
     border: 1px solid $cobalt;
   }
@@ -108,6 +125,9 @@ select {
   background-color: $gray;
   color: $navy;
   border-radius: 5px;
+  width: 100%;
+  height: 48px;
+  padding: 10px;
   :focus {
     border: 1px solid $cobalt;
   }
@@ -126,27 +146,39 @@ select {
 aside {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  width: 255px;
   margin-right: 30px;
   color: $white;
   .user {
     color: $lilac;
     background-color: $purple;
+    background: linear-gradient(22deg, rgba(70,97,230,1) 3%, rgba(173,31,234,1) 57%, rgba(244,159,133,1) 100%);
+    height: 137px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 20px;
   }
   .category {
     background-color: $white;
+    width: 100%;
+    height: 166px;
+    margin-bottom: 20px;
+    border-radius: 10px;
   }
 }
 
 .feedbackContainer {
   display: flex;
   flex-direction: column;
+  width: 825px;
   .navBar {
     background-color: $darknavy;
     color: $white;
-    padding: 10px;
+    padding: 20px;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
   }
   .feedbackItem {
     background-color: $white;

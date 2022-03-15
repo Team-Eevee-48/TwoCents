@@ -2,9 +2,13 @@ import React from "react";
 import Sidebar from "./components/Sidebar.jsx";
 import FeedbackContainer from "./components/FeedbackContainer.jsx";
 
-const App = () => <main>
-  <Sidebar/>
-  <FeedbackContainer />
-</main>;
+const App = () => {
+  return (
+    <section className="content">
+      <Sidebar/>
+      <FeedbackContainer />
+    </section>
+  )
+};
 
 export default App;

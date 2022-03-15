@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import NavBar from './NavBar.jsx';
 
 const FeedbackContainer = () => {
   // LOGIC FOR FEEDBACK ITEMS
   const mapStateToProps = state => ({feedbackItems: state.feedbackItems})
+  
+  /** QUERY RESULT
+   * {title: ..., description: ...}
+   */
 
   const feedbackItemArray = []
   
@@ -19,7 +24,7 @@ const FeedbackContainer = () => {
     return (
       <section className='feedbackContainer'>
           <NavBar />
-          <EmptyState />
+          {/* <EmptyState /> */}
         </section>
     )
   }
