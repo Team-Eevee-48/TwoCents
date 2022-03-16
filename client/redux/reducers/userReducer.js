@@ -5,6 +5,8 @@ const initialState = {
   first_name: '',
   last_name: '',
   email: '',
+  failedAuthStatement: '',
+  page: 'login',
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -26,7 +28,7 @@ const usersReducer = (state = initialState, action) => {
     case types.CHANGE_PAGE:
       return {
         ...state,
-        failedAuthStatement: ''
+        page: action.payload
       }
     default:
       return state;

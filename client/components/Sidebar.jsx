@@ -4,7 +4,7 @@ import CategoryTag from './CategoryTag.jsx';
 
 const mapStateToProps = state => ({
   tags: state.feedback.tags,
-  user: state.users.user,
+  username: state.users.username,
 });
 
 const Sidebar = (props) => {
@@ -17,7 +17,7 @@ const Sidebar = (props) => {
 
   return (
     <aside>
-      <div className='user'><h3>{ props.user }</h3></div>
+      <div className='user'><h3>{ props.username }</h3></div>
       <div className='category'>
         { tags }
       </div>

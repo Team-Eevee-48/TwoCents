@@ -18,10 +18,10 @@ export const signUpActionCreator = (username, password, first_name, last_name, e
     })
     .then((response) => {
       dispatch({
-        type: types.SSUCCESSFUL_AUTH,
+        type: types.SUCCESSFUL_AUTH,
         payload: { username: res.data.username }
       })
-      dispatch(changePage('feedback'));
+      dispatch(changePageActionCreator('feedback'));
     })
     .catch((err) => {
       console.log(err);
@@ -48,7 +48,7 @@ export const loginActionCreator = (username, password, cookieAuth = false) => di
         type: types.SUCCESSFUL_AUTH,
         payload: { username: res.data.username },
       })
-      dispatch(changePage('feedback'));
+      dispatch(changePageActionCreator('feedback'));
     })
     .catch((err) => {
       if (cookieAuth) return;
@@ -59,6 +59,11 @@ export const loginActionCreator = (username, password, cookieAuth = false) => di
     })
   }
 };
+
+export const changePageActionCreator = (newPage) => ({
+  type: types.CHANGE_PAGE,
+  payload: newPage
+});
 
 export const addFeedbackThunk = ({ username, title, description, votes, tags }) => {
   return async dispatch => {

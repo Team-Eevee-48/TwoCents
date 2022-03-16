@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
+const mapStateToProps = state => ({
+  failedAuthStatement: state.user.failedAuthStatement,
+})
+
 const mapDispatchToProps = dispatch => ({
   loginActionCreator: (username, password) => dispatch(actions.loginActionCreator(username, password))
 })
@@ -23,8 +27,9 @@ const Login = props => {
       <input type="password" name="password"></input>
       </label>
       <button className="submitBtn" onClick={handleSubmit}>Log In</button>
+      <p>{props.failedAuthStatement}</p>
       <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
     </div>
 )};
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
