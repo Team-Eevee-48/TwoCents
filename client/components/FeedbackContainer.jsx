@@ -4,12 +4,25 @@ import NavBar from './NavBar.jsx';
 import FeedbackItem from './FeedbackItem.jsx';
 import EmptyState from './EmptyState.jsx';
 import axios from 'axios';
+import * as action from '../redux/actions/actions';
 
 const mapStateToProps = state => ({
   feedbackItems: state.feedback.feedbackItems,
+  user_id: state.user.user_id
+})
+
+const mapDispatchToProps = dispatch => ({
+  getFeedback: (user_id) => {
+    dispatch(action.getFeedbackActionCreator(user_id))
+  }
 })
 
 const FeedbackContainer = (props) => {
+
+  useEffect(() => {
+    props.getFeedback(props.user_id)
+  }, [])
+  
   
   const feedbackItemArray = props.feedbackItems.map(item => {
     return <FeedbackItem info={item} key={item.title}/>
@@ -29,7 +42,7 @@ const FeedbackContainer = (props) => {
     return (
       <section className='feedbackContainer'>
         <NavBar key='navBarItems' />
-        {feedbackItemArray}
+        <div className='feedbackItemsContainer'>{feedbackItemArray}</div>
       </section>
     )
   } else {
@@ -37,9 +50,9 @@ const FeedbackContainer = (props) => {
       <section className='feedbackContainer'>
           <NavBar key='navBarEmpty' />
           <EmptyState key='emptyState' />
-        </section>
+      </section>
     )
   }
 }
 
-export default connect(mapStateToProps, null)(FeedbackContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FeedbackContainer);

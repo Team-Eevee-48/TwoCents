@@ -1,10 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/actions.js';
 
 const mapStateToProps = state => ({
   failedAuthStatement: state.user.failedAuthStatement,
+  authStatus: state.user.authStatus,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -18,6 +19,15 @@ const Login = props => {
     props.loginActionCreator(email, password);
   }
 
+  const redirectFeedback = () => {
+    const navigate = useNavigate()
+    useEffect(() => {
+      navigate('/feedback');
+    }, [])
+  }
+  
+  if (props.authStatus) redirectFeedback()
+  
   return (
     <div className="login">
       <h2>Login</h2>

@@ -2,7 +2,7 @@ const router = require("express").Router();
 // IMPORT CONTROLLER FILE FOR PLACEHOLDER
 const auth = require("../controllers/auth_controller.js");
 
-router.get("/", auth.checkAccessToken, (req, res) => {
+router.get("/", auth.checkAccessToken, auth.getUser, (req, res) => {
     return res.json(res.locals);
 });
 

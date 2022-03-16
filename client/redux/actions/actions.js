@@ -8,7 +8,7 @@ export const signUpActionCreator = (first_name, last_name, email, username, pass
   else {
     axios({
       method: 'POST',
-      url: '/auth/signup',
+      url: '/api/auth/signup',
       headers: {'Content-Type': 'application/json'},
       data: {
         first_name: first_name,
@@ -21,9 +21,8 @@ export const signUpActionCreator = (first_name, last_name, email, username, pass
     .then((response) => {
       dispatch({
         type: types.SUCCESSFUL_AUTH,
-        payload: { username: response.username }
+        payload: { user_id: response.data._id, username: response.data.username }
       })
-      // dispatch(changePageActionCreator('feedback'));
     })
     .catch((err) => {
       console.log(err);
@@ -32,32 +31,28 @@ export const signUpActionCreator = (first_name, last_name, email, username, pass
   }
 }
 
-export const loginActionCreator = (username, password) => dispatch => {
-  if (!username || !password) return dispatch({ type: types.UNSUCCESSFUL_AUTH});
+export const loginActionCreator = (email, password) => dispatch => {
+  if (!email || !password) return dispatch({ type: types.UNSUCCESSFUL_AUTH});
   else { 
     axios({
     method: 'POST',
-    url: '/auth/login',
+    url: '/api/auth/login',
     headers: {'Content-Type': 'application/json'},
     data: {
-      username: username,
-      password: password
+      email,
+      password
       }
     })
     .then((response) => {
-      if (response.status === false) return dispatch({ type: types.UNSUCCESSFUL_AUTH })
+      if (response.data.status === false) return dispatch({ type: types.UNSUCCESSFUL_AUTH })
       dispatch({
         type: types.SUCCESSFUL_AUTH,
-        payload: { username: response.username },
+        payload: { user_id: response.data._id, username: response.data.username },
       })
-      location.push('/feedback');
     })
     .catch((err) => {
-      if (response.accessToken) return;
-      else {
         console.log(err);
         dispatch({ type: types.UNSUCCESSFUL_AUTH });
-      }
     })
   }
 };
@@ -67,33 +62,35 @@ export const changePageActionCreator = (newPage) => ({
   payload: newPage
 });
 
-export const addFeedbackThunk = ({ username, title, description, votes, tags }) => {
-  return async dispatch => {
-    dispatch(addFeedbackActionCreator());
 
-    await axios
-      .post('/api/feedback/post', {
-        username,
+export const addFeedbackActionCreator = (user_id, title, description, category) => dispatch => {
+  console.log('addfeedback params', user_id, title, description, category)
+  if (!user_id || !title || !description || !category) return dispatch({ type: types.SUBMISSION_ERROR})
+  else {
+    axios
+      .post('/api/feedback', {
+        user_id,
         title,
         description,
-        votes,
-        tags
+        category
       })
-    .catch(() => console.log('Could not post new feedback.'))
+      .then(response => {
+        dispatch({ type: types.SUBMISSION_SUCCESS})
+      })
+      .catch(err => {
+        console.log('err', err)
+        dispatch({ type: types.SUBMISSION_ERROR})
+      })
   }
-}
-
-export const addFeedbackActionCreator = () => ({
-  type: types.ADD_FEEDBACK,
-});
+};
 
 export const getFeedbackActionCreator = (user_id) => (dispatch) => {
   axios({
     method: 'GET',
-    url: '/feedback',
+    url: '/api/feedback',
     headers: {'Content-Type': 'application/json'},
     data: {
-      user_id: user_id,
+      _id: user_id,
     }
   })
   .then((response) => {
@@ -101,13 +98,39 @@ export const getFeedbackActionCreator = (user_id) => (dispatch) => {
       type: types.GET_FEEDBACK,
       payload: response.data
     });
-  });
+  })
+  .catch(err => {
+    console.log(err);
+  })
 };
 
-export const upVoteActionCreator = () => ({
-  type: types.UP_VOTE,
-});
+export const upVoteActionCreator = (itemId, user_id, votes) => dispatch => {
+  axios
+    .put('/api/feedback', {
+      itemId,
+      user_id,
+      votes
+    })
+    .then(response => {
+      dispatch({
+        type: types.UP_VOTE,
+        payload: response.data.votes
+      })
+    })
+  };
 
 export const addTagFilterActionCreator = () => ({
   type: types.ADD_TAG_FILTER,
 });
+
+export const getUserActionCreator = () => dispatch => {
+  axios.get('/api/auth')
+    .then(res => {
+      dispatch({
+        type: types.GET_USER,
+        payload: res.data
+      })
+    }).catch(err => {
+      console.log(err);
+    })
+}

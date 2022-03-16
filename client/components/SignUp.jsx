@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from 'react-router';
+import React, { useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { connect } from 'react-redux';
 import * as actions from '../redux/actions/actions.js';
 
@@ -15,15 +14,25 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const SignUp = props => {
-  const handleSubmit = e => {
+  
+  const handleSubmit = (e) => {
     const first_name = document.querySelector('input[name="first_name"]').value;
     const last_name = document.querySelector('input[name="last_name"]').value;
     const email = document.querySelector('input[name="email"]').value;
     const username = document.querySelector('input[name="username"]').value;
     const password = document.querySelector('input[name="password"]').value;
-    props.signUpActionCreator(first_name, last_name, email, username, password);
-    if (props.authStatus) useLocation('/feedback')
+    props.signUpActionCreator(first_name, last_name, email, username, password)
   }
+  
+  const redirectFeedback = () => {
+    const navigate = useNavigate()
+    useEffect(() => {
+      navigate('/feedback');
+    }, [])
+  }
+
+  console.log(props.authStatus);
+  if (props.authStatus) redirectFeedback()
 
   return (
     <div className="login">

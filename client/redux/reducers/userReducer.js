@@ -1,7 +1,8 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  username: 'Team Eevee',
+  username: '',
+  user_id: 0,
   first_name: '',
   last_name: '',
   email: '',
@@ -12,15 +13,15 @@ const initialState = {
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SUCCESSFUL_AUTH:
-      const { username, first_name, last_name } = action.payload;
+      const { username, user_id } = action.payload;
+      console.log('successfulAuth', action.payload)
       return {
         ...state,
         username,
-        first_name,
-        last_name,
+        user_id,
         authStatus: true,
-        failedAuthStatement: ''
       }
+      
     case types.UNSUCCESSFUL_AUTH:
       return { 
         ...state,

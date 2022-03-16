@@ -10,6 +10,7 @@ feedbackController.getAll = (req, res, next) => {
     const queryString = `
         SELECT *
         FROM feedback
+        ORDER BY _id DESC
         LIMIT 20;
     `;
     db.query(queryString, undefined, (err, response) => {
@@ -69,7 +70,92 @@ feedbackController.create = (req, res, next) => {
     );
 };
 
-feedbackController.edit = (req, res, next) => {};
+feedbackController.edit = (req, res, next) => {
+    let { itemId, user_id, votes } = req.body;
+    votes++;
+    const query1 = `
+        SELECT _id
+        FROM votes
+        WHERE feedback_id = $1 AND user_id = $2;
+    `;
+    db.query(query1, [itemId, user_id], (err, response) => {
+        if (err)
+                return next({
+                    log: `feedbackController.edit ERROR: ${err}`,
+                    message: {
+                        err: "Inappropriate data types entered query 1.",
+                    },
+                });
+            if (response.rows[0]) {
+                return next({
+                    log: `feedbackController.edit SELECT votes ERROR: ${err}`,
+                    message: {
+                        err: "Already voted for this post.",
+                    },
+                });
+            } else {
+                const query2 = `
+                    INSERT INTO votes (feedback_id, user_id)
+                    VALUES ($1, $2);    
+                    UPDATE feedback
+                    SET votes = $3
+                    WHERE _id = $1
+                    RETURNING votes;
+                `;
+                db.query(
+                    query2,
+                    [itemId, user_id, votes],
+                    (err, response) => {
+                        if (err)
+                            return next({
+                                log: `feedbackController.edit ERROR: ${err}`,
+                                message: {
+                                    err: "Inappropriate data types entered.",
+                                },
+                            });
+                        if (response.rows[0]) {
+                            res.locals.votes = response.rows[0].votes;
+                            return next()
+                        } else
+                            return next({
+                                log: `feedbackController.edit INSERT INTO ERROR: ${err}`,
+                                message: {
+                                    err: "Unable to locate votes in database.",
+                                },
+                            })
+                    }
+                )
+            }
+    })
+
+    // const query3 = `
+    
+    // `;
+
+    // db.query(
+    //     query3,
+    //     [itemId, user_id, votes],
+    //     (err, response) => {
+    //         if (err)
+    //             return next({
+    //                 log: `feedbackController.edit ERROR: ${err}`,
+    //                 message: {
+    //                     err: "Inappropriate data types entered.",
+    //                 },
+    //             });
+    //         if (response.rows[0]) {
+    //             res.locals.votes = response.rows[0].votes;
+    //             return next()
+    //         } else
+    //             return next({
+    //                 log: `feedbackController.edit INSERT INTO ERROR: ${err}`,
+    //                 message: {
+    //                     err: "Unable to locate votes in database.",
+    //                 },
+    //             })
+    //     }
+    // )
+};
 
 feedbackController.delete = (req, res, next) => {
     const post_id = req.params.id;

@@ -46,10 +46,9 @@ module.exports = {
         },
         historyApiFallback: true,
         proxy: {
-            "/auth": {
+            "/api": {
                 target: "http://localhost:3000",
-                // pathRewrite: {'^/api': ''}
-            }
-        },
+                pathRewrite: {'^/api': ''}
+            },
     },
-};
+}};
