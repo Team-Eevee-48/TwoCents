@@ -4,7 +4,7 @@ import AddFeedbackBtn from './AddFeedbackBtn.jsx';
 const EmptyState = () => {
   return (
     <div className='emptyState'>
-      <h2>There is no feedback yet.</h2>
+      <h2>&#129300;<br/>There is no feedback yet.</h2>
       <p>
         Got a suggestion? Found a bug that needs to be squashed?
         <br/>

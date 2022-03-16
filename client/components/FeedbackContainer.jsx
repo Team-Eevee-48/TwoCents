@@ -3,38 +3,43 @@ import { connect } from 'react-redux';
 import NavBar from './NavBar.jsx';
 import FeedbackItem from './FeedbackItem.jsx';
 import EmptyState from './EmptyState.jsx';
+import axios from 'axios';
 
+const mapStateToProps = state => ({
+  feedbackItems: state.feedback.feedbackItems,
+})
 
-
-const FeedbackContainer = () => {
+const FeedbackContainer = (props) => {
   
-  const feedbackItemArray = [];
+  const feedbackItemArray = props.feedbackItems.map(item => {
+    return <FeedbackItem info={item} key={item.title}/>
+  });
 
-  useEffect(() => {
-    axios.get('/feedback')
-    .then(data => data.json)
-    .then(data => {
-      data.forEach(ele => {
-        feedbackItemArray.push(<FeedbackItem info={ele}/>)
-      }) 
-    })
-  })
+  // useEffect(() => {
+  //   axios.get('/feedback')
+  //   .then(data => data.json) //data.rows = [{}, ...]
+  //   .then(data => {
+  //     data.forEach(ele => {
+  //       feedbackItemArray.push(<FeedbackItem info={ele}/>)
+  //     }) 
+  //   })
+  // })
 
   if (feedbackItemArray.length) {
     return (
       <section className='feedbackContainer'>
-        <NavBar />
+        <NavBar key='navBarItems' />
         {feedbackItemArray}
       </section>
     )
   } else {
     return (
       <section className='feedbackContainer'>
-          <NavBar />
-          <EmptyState />
+          <NavBar key='navBarEmpty' />
+          <EmptyState key='emptyState' />
         </section>
     )
   }
 }
 
-export default FeedbackContainer;
+export default connect(mapStateToProps, null)(FeedbackContainer);

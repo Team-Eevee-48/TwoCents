@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar.jsx";
 import FeedbackContainer from "./components/FeedbackContainer.jsx";
 import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
+import AddFeedbackForm from "./components/AddFeedbackForm.jsx";
 
 const App = () => {
   return (
@@ -13,19 +14,25 @@ const App = () => {
           <Route
             exact
             path="/"
-            element={[<Sidebar />, <FeedbackContainer />]}
+            element={[<Sidebar key='sidebar' />, <FeedbackContainer key='feedbackContainer' />]}
             >
           </Route>
           <Route 
             exact 
             path="/login"
-            element={<Login />}
+            element={<Login key='login' />}
             >
           </Route>
           <Route 
             exact 
             path="/signup"
-            element={<SignUp />}
+            element={<SignUp key='signup' />}
+            >
+          </Route>
+          <Route 
+            exact 
+            path="/addfeedback"
+            element={<AddFeedbackForm key='addFeedbackForm' />}
             >
           </Route>
         </Routes>
@@ -35,20 +42,3 @@ const App = () => {
 };
 
 export default App;
-
-/**<div className="router">
-      <main>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={Characters}
-          />
-          <Route
-            exact
-            path="/create"
-            component={CreateCharacter}
-          />
-        </Switch>
-      </main>
-    </div> */

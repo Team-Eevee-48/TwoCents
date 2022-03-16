@@ -83,6 +83,7 @@ button {
 .cancelBtn {
   background-color: $navy;
   border: none;
+  margin-right: 10px;
   &:hover {
     background-color: $hovernavy;
   }
@@ -97,14 +98,17 @@ button {
 }
 
 .voteBtn {
+  display: flex;
+  flex-direction: column;
   width: auto;
-  min-width: 20px;
-  height: 30px;
-  padding: 5px;
+  font-weight: bold;
+  height: auto;
+  padding: 10px;
   border-radius: 10px;
   background-color: $lilac;
   color: $navy;
   border: none;
+  cursor: pointer;
   &:hover {
     background-color: $hoverlilac;
   }
@@ -138,6 +142,7 @@ input {
   color: $navy;
   border-radius: 5px;
   height: 48px;
+  border: 1px solid $darknavy;
   &:focus {
     border: 1px solid $cobalt;
   }
@@ -213,8 +218,8 @@ aside {
   .feedbackItem {
     background-color: $white;
     color: $darknavy;
-    border-radius: 5px;
-    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
     #itemDescription {
       font-size: 16px;
       line-height: 23px;
@@ -260,4 +265,36 @@ aside {
   p {
     text-align: center;
   }
+}
+
+.feedbackForm {
+  width: 500px;
+  height: auto;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  background-color: $white;
+  border-radius: 10px;
+  label {
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  input {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  p {
+    font-weight: normal;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+  margin-top: 20px;
 }

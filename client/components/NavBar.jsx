@@ -5,7 +5,7 @@ import AddFeedbackBtn from './AddFeedbackBtn.jsx';
 const NavBar = () => {
 
   return(
-    <div className='navBar'>Suggestions
+    <div className='navBar'>&#128161;&nbsp;Suggestions
       <AddFeedbackBtn />
     </div>
   )

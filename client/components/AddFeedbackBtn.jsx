@@ -1,17 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const AddFeedbackBtn = () => {
-
-  handleClick = e => {
-    useNavigate('/addfeedback');
-  }
-
-  return (
-    <button className='submitBtn' onClick={handleClick}>
-      + Add Feedback
+const AddFeedbackBtn = () => (
+  <Link to="/addfeedback">
+    <button className='submitBtn'>
+    + Add Feedback
     </button>
-  )
-}
+  </Link>
+)
+
 
 export default AddFeedbackBtn;
