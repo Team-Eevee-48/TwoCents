@@ -33,6 +33,15 @@
             "database": "public",
             "username": "uwimopft",
             "connectString": "postgres://uwimopft:TXYgz7VFjiEDHhr10nQ63L4UskmFIEgY@kashin.db.elephantsql.com/uwimopft"
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "test_product_feedback",
+            "connectString": "postgres://jyjsaqfa:iRCQ1zjmxlIVu96qEaCv5A0wiok4rMwu@kashin.db.elephantsql.com/jyjsaqfa"
         }
     ]
 }
