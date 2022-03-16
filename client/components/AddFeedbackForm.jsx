@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
   addFeedbackThunk: ({username, title, description, votes, tags}) => dispatch(actions.addFeedbackThunk({username, title, description, votes, tags}))
 })
 
-const AddFeedbackForm = (props) => {
+const AddFeedbackForm = props => {
   const handleClick = e => {
     const username = props.username;
     const title = document.querySelector('input[name="feedbackTitle"]').value.trim();

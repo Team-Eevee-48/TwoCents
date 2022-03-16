@@ -15,7 +15,7 @@ authController.signupUser = (req, res, next) => {
     // assume validation on frontend
     // save credentials
 
-    // console.log(req.body);
+    console.log('signup', req.body);
 
     // check if user email already exist
     const queryString = `
@@ -90,6 +90,7 @@ authController.createSession = (req, res, next) => {
                 },
             });
         res.locals.accessToken = accessToken;
+        res.locals.status = true;
         res.cookie("accessToken", accessToken, {
             maxAge: 60 * 60 * 1000,
             httpOnly: true,

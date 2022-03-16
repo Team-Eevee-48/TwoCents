@@ -23,5 +23,4 @@ const AppWrapper = () => (
   </Router>
 )
 
-
 export default AppWrapper;

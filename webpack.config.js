@@ -44,8 +44,12 @@ module.exports = {
             publicPath: "/dist",
             directory: path.resolve(__dirname, "dist"),
         },
-        // proxy: {
-        //     "/": "http://localhost:3000",
-        // },
+        historyApiFallback: true,
+        proxy: {
+            "/auth": {
+                target: "http://localhost:3000",
+                // pathRewrite: {'^/api': ''}
+            }
+        },
     },
 };

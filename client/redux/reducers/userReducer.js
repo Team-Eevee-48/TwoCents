@@ -6,7 +6,7 @@ const initialState = {
   last_name: '',
   email: '',
   failedAuthStatement: '',
-  page: 'login',
+  authStatus: false,
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -18,17 +18,13 @@ const usersReducer = (state = initialState, action) => {
         username,
         first_name,
         last_name,
+        authStatus: true,
         failedAuthStatement: ''
       }
     case types.UNSUCCESSFUL_AUTH:
       return { 
         ...state,
         failedAuthStatement: 'Authentication failed. Please try again.'
-      }
-    case types.CHANGE_PAGE:
-      return {
-        ...state,
-        page: action.payload
       }
     default:
       return state;

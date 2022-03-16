@@ -15,7 +15,10 @@ router.post("/signup", auth.signupUser, auth.createSession, (req, res) => {
      * */
     // res.cookie("accessToken", res.locals.accessToken, { httpOnly: true });
     // console.log("signup resss locals: ", res.locals);
-    return res.json(res.locals);
+    return res.json({
+        ...res.locals,
+        status: true
+    });
 });
 
 router.post("/login", auth.loginUser, auth.createSession, (req, res) => {

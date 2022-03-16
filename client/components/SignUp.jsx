@@ -1,23 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
+import * as actions from '../redux/actions/actions.js';
 
 const mapStateToProps = state => ({
   failedAuthStatement: state.user.failedAuthStatement,
+  authStatus: state.user.authStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
-  signUpActionCreator: (first_name, last_name, email, username, password) => dispatch(signUpActionCreator(first_name, last_name, email, username, password))
+  changePageActionCreator: payload => dispatch(actions.changePageActionCreator(payload)),
+  signUpActionCreator: (first_name, last_name, email, username, password) => dispatch(actions.signUpActionCreator(first_name, last_name, email, username, password))
 })
 
 const SignUp = props => {
   const handleSubmit = e => {
-    const first_name = document.querySelector('input[name="firstName]').value;
-    const last_name = document.querySelector('input[name="lastName]').value;
+    const first_name = document.querySelector('input[name="first_name"]').value;
+    const last_name = document.querySelector('input[name="last_name"]').value;
     const email = document.querySelector('input[name="email"]').value;
-    const username = document.querySelector('input[name="username]').value;
+    const username = document.querySelector('input[name="username"]').value;
     const password = document.querySelector('input[name="password"]').value;
     props.signUpActionCreator(first_name, last_name, email, username, password);
+    if (props.authStatus) useLocation('/feedback')
   }
 
   return (
