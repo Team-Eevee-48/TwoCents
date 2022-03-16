@@ -38,7 +38,7 @@ const SignUp = props => {
       <label htmlFor="password"> Password
       <input type="password" name="password"></input>
       </label>
-      <button className="submitBtn">Create Account</button>
+      <button className="submitBtn" onClick={handleSubmit}>Create Account</button>
       <p>{props.failedAuthStatement}</p>
       <p>Already have an account? <Link to="/login">Log In</Link></p>
     </div>
