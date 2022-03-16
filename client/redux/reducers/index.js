@@ -1,9 +1,10 @@
 import { combineReducers } from "redux";
-
-//import mainReducer from "./mainReducer";
+import feedbackReducer from "./feedbackReducer";
+import userReducer from "./userReducer";
 
 const reducers = combineReducers({
-    //search: mainReducer,
+    feedback: feedbackReducer,
+    user: userReducer,
 });
 
 export default reducers;
