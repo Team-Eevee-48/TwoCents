@@ -1,0 +1,29 @@
+
+
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "username": "Mikeyc",
+    "email": "mikey9@gmail.com",
+    "password": "1234",
+    "first_name": "Mike2",
+    "last_name": "Henry2"
+}
+
+###
+
+GET http://localhost:3000/
+
+###
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "mikey8@gmail.com",
+    "password": "1234"
+}
+
+###
+GET http://localhost:3000/auth/

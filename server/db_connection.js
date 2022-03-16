@@ -1,7 +1,14 @@
 require("dotenv").config();
 const { Pool } = require("pg");
 
-const PG_URI = process.env.URI_CONNECTION;
+// NODE_ENV injected from CLI
+
+const PG_URI =
+    process.env.NODE_ENV === "development"
+        ? process.env.TEST_URI_CONNECTION
+        : process.env.URI_CONNECTION;
+
+console.log("connect to: ", PG_URI);
 
 const pool = new Pool({
     connectionString: PG_URI,

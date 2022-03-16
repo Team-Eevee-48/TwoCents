@@ -1,0 +1,16 @@
+###
+GET http://localhost:3000/feedback
+
+###
+POST http://localhost:3000/feedback
+Content-Type: application/json
+
+{
+    "title": "A dummy Post",
+    "description": "test description",
+    "category": "enhancement",
+    "user_id": 1
+}
+
+###
+DELETE http://localhost:3000/feedback/4
