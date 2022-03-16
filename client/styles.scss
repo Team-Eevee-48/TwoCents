@@ -249,7 +249,7 @@ aside {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: left;
+  align-items: center;
   background-color: $white;
   border-radius: 10px;
   h2 {
@@ -257,7 +257,7 @@ aside {
   }
   label {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   input {
     width: 100%;
