@@ -1,35 +1,42 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  username: 'Team Eevee',
+  username: '',
+  user_id: 0,
   first_name: '',
   last_name: '',
   email: '',
   failedAuthStatement: '',
-  page: 'login',
+  authStatus: false,
 }
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SUCCESSFUL_AUTH:
-      const { username, first_name, last_name } = action.payload;
+      const { username, user_id } = action.payload;
+      // console.log('successfulAuth', action.payload)
       return {
         ...state,
         username,
-        first_name,
-        last_name,
-        failedAuthStatement: ''
+        user_id: action.payload._id,
+        authStatus: true,
       }
+      
     case types.UNSUCCESSFUL_AUTH:
       return { 
         ...state,
         failedAuthStatement: 'Authentication failed. Please try again.'
       }
-    case types.CHANGE_PAGE:
+    case types.GET_USER: {
+        const { username, user_id } = action.payload;
+      // console.log('successful getUsers from reducer', action.payload)
       return {
         ...state,
-        page: action.payload
+        username,
+        user_id: action.payload._id,
+        authStatus: true,
       }
+    }
     default:
       return state;
   }

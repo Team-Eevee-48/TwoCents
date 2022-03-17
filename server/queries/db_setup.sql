@@ -13,20 +13,24 @@
 --   _id SERIAL PRIMARY KEY NOT NULL,
 --   user_id INT REFERENCES users (_id),
 --   session_token VARCHAR(500) NOT NULL UNIQUE
+--   expires_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP + INTERVAL '1 day';
 -- );
 
-DROP TABLE feedback;
+-- CREATE TABLE feedback (
+--   _id SERIAL PRIMARY KEY NOT NULL,
+--   user_id INT REFERENCES users (_id),
+--   title VARCHAR(255) NOT NULL,
+--   description VARCHAR(255) NOT NULL,
+--   votes INT NOT NULL,
+--   total_comments VARCHAR(255),
+--   category categories,
+--   status statuses DEFAULT 'pending'
+-- );
 
-CREATE TABLE feedback (
-  _id SERIAL PRIMARY KEY NOT NULL,
-  user_id INT REFERENCES users (_id),
-  title VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  votes INT NOT NULL,
-  category categories,
-  total_comments VARCHAR(255),
-  status statuses DEFAULT 'pending'
-);
+
+
+
+-- below for stretch
 
 -- CREATE TABLE votes (
 --   _id SERIAL PRIMARY KEY NOT NULL,

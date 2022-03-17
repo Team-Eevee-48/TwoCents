@@ -15,7 +15,7 @@ authController.signupUser = (req, res, next) => {
     // assume validation on frontend
     // save credentials
 
-    // console.log(req.body);
+    console.log('signup', req.body);
 
     // check if user email already exist
     const queryString = `
@@ -90,6 +90,7 @@ authController.createSession = (req, res, next) => {
                 },
             });
         res.locals.accessToken = accessToken;
+        res.locals.status = true;
         res.cookie("accessToken", accessToken, {
             maxAge: 60 * 60 * 1000,
             httpOnly: true,
@@ -139,10 +140,11 @@ authController.loginUser = (req, res, next) => {
 };
 
 authController.checkAccessToken = (req, res, next) => {
+
     const cookie = req.cookies.accessToken;
-    console.log("coooooookie: ", cookie, req);
     jwt.verify(cookie, process.env.JWT_SECRET, (err, success) => {
         if (success) {
+            console.log("My Cookie + success", cookie);
             res.locals.permitted = true;
             res.locals._id = success.id;
             next();
@@ -156,5 +158,27 @@ authController.checkAccessToken = (req, res, next) => {
         }
     });
 };
+
+authController.getUser = (req, res, next) => {
+    const id = res.locals._id
+    const query = `
+        SELECT * FROM users
+        WHERE _id = $1;
+    `;
+    db.query(query, [id], (err, response) => {
+         if (err)
+                return next({
+                    log: `authController.getUser ERROR: ${err}`,
+                    message: {
+                        err: "Database connection error.",
+                    },
+                });
+        if(response.rows[0]){
+            res.locals.username = response.rows[0].username;
+            return next()
+        }
+        return next({err: 'User not found'})
+    })
+}
 
 module.exports = authController;
