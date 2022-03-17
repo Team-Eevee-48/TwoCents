@@ -2,7 +2,6 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   feedbackItems: [],
-  votes: 0,
   category: ['feature', 'enhancement', 'bug'],
   tagFilters: [],
 }
@@ -35,10 +34,18 @@ const feedbackReducer = (state = initialState, action) => {
       }
 
     case types.UP_VOTE: {
-      const { votes } = action.payload
+      const { votes, _id } = action.payload
+      console.log(feedbackItems);
+      console.log('upvote reducer called', votes, _id);
+      const cb = (el) => {
+        if(el._id === _id){
+          el.votes = votes
+        }
+        return el
+      };
       return {
         ...state,
-        votes,
+        feedbackItems: feedbackItems.map(cb),
       };
     }
 
@@ -57,6 +64,7 @@ const feedbackReducer = (state = initialState, action) => {
         tagFilters
       }
     }
+ 
 
     default:
       return state;

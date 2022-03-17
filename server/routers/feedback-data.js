@@ -19,7 +19,7 @@ router.post("/", /*auth.checkAccessToken,*/ feedback.create, (req, res) => {
     return res.json(res.locals);
 });
 
-router.put("/", auth.checkAccessToken, feedback.edit, (req, res) => {
+router.put("/", /*auth.checkAccessToken,*/ feedback.edit, (req, res) => {
     /* edit existing post if you own the post */
     return res.json(res.locals);
 });

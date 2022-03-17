@@ -13,7 +13,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Development",
+            title: "Product Feedback",
             template: "./client/index.html",
         }),
     ],

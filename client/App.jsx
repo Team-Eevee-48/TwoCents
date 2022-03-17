@@ -18,12 +18,13 @@ const App = () => useRoutes([
 
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => {
-
+    dispatch(action.getUserActionCreator())
   }
 })
 
-const AppWrapper = () => (
-  
+const AppWrapper = (props) => {
+  props.getUser()
+  return (
   <Router>
     <section className='content'>
       <App />
@@ -31,4 +32,5 @@ const AppWrapper = () => (
   </Router>
 )
 
-export default connect(null,null)(AppWrapper);
+}
+export default connect(null,mapDispatchToProps)(AppWrapper);

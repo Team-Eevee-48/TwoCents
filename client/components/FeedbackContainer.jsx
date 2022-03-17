@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import NavBar from './NavBar.jsx';
 import FeedbackItem from './FeedbackItem.jsx';
@@ -22,9 +22,16 @@ const FeedbackContainer = (props) => {
   useEffect(() => {
     props.getFeedback(props.user_id)
   }, [])
+
+  const [items, setItems ] = useState(props.feedbackItems)
+
+  useEffect(() => {
+    console.log(props.feedbackItems);
+    setItems(props.feedbackItems)
+  }, [props])
   
   
-  const feedbackItemArray = props.feedbackItems.map(item => {
+  const feedbackItemArray = items.map(item => {
     return <FeedbackItem info={item} key={item.title}/>
   });
 

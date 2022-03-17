@@ -1,15 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as actions from '../redux/actions/actions';
 
 const mapStateToProps = state => ({
   user_id: state.user.user_id,
-  title: state.feedback.title,
-  description: state.feedback.description,
-  votes: state.feedback.votes,
+  // title: state.feedback.title,
+  // description: state.feedback.description,
+  // votes: state.feedback.votes,
   category: state.feedback.category,
-  submissionStatus: state.feedback.submissionStatus,
+  // submissionStatus: state.feedback.submissionStatus,
 })
 
 
@@ -18,18 +18,24 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const AddFeedbackForm = props => {
-  console.log('feedbackForm', props)
+  useEffect(() => {
+    console.log('feedbackForm', props)
+  }, [props])
+  
   const handleClick = e => {
-    console.log('form submitted')
+    console.log('form submitted props', props)
     const user_id = props.user_id;
     const title = document.querySelector('input[name="feedbackTitle"]').value.trim();
     const description = document.querySelector('input[name="description"]').value.trim();
     const category = document.querySelector('select').value
     props.addFeedbackActionCreator(user_id, title, description, category);
+    
+    const navigate = useNavigate();
+    setTimeout(() => navigate('/feedback'), 100);
   }
   
-  const options = props.category.map(category => {
-    return <option value={category}>{category}</option>
+  const options = props.category.map((category, i) => {
+    return <option value={category} key={i}>{category}</option>
   });
 
   let submissionReport

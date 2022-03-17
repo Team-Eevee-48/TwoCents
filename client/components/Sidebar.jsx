@@ -17,12 +17,13 @@ const Sidebar = (props) => {
 
   return (
     <aside>
-      <div className='user'><h3>{ props.username }</h3><br/><p>Feedback Board</p></div>
+      <div className='user'><h3>Welcome, {props.username}!</h3><p>Product Feedback Board</p></div>
       <div className='category'>
         { categories }
       </div>
       <label htmlFor='Sort'>
-        <select name='Sort'>
+        <select name='Sort' default='Sort'>
+          <option value='Sort'>Sort Feedback</option>
           <option value='Most Votes'>Most Votes</option>
           <option value='Least Votes'>Least Votes</option>
         </select>

@@ -112,12 +112,33 @@ export const upVoteActionCreator = (itemId, user_id, votes) => dispatch => {
       votes
     })
     .then(response => {
+      // console.log('from upvote action', response.data, itemId);
+      
       dispatch({
         type: types.UP_VOTE,
-        payload: response.data.votes
+        payload: { votes: response.data.votes, _id: itemId }
       })
     })
   };
+
+export const removeVoteActionCreator = (itemId, user_id, votes) => dispatch => {
+  axios({
+    method: 'DELETE',
+    url: '/api/feedback',
+    headers: { 'Content-Type': 'application/json'},
+    data: {
+      itemId,
+      user_id,
+      votes
+    }
+  })
+  .then(response => {
+    dispatch({
+      type: types.REMOVE_VOTE,
+      payload: response.data.votes
+    })
+  })
+}
 
 export const addTagFilterActionCreator = () => ({
   type: types.ADD_TAG_FILTER,
