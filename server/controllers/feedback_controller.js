@@ -10,6 +10,7 @@ feedbackController.getAll = (req, res, next) => {
     const queryString = `
         SELECT *
         FROM feedback
+        ORDER BY _id DESC
         LIMIT 20;
     `;
     db.query(queryString, undefined, (err, response) => {
@@ -69,7 +70,83 @@ feedbackController.create = (req, res, next) => {
     );
 };
 
-feedbackController.edit = (req, res, next) => {};
+feedbackController.edit = (req, res, next) => {
+    console.log('req.body', req.body)
+    let { itemId, user_id, votes } = req.body;
+    // console.log("vote variables: ", itemId, user_id, votes);
+    votes++;
+    const query1 = `
+        SELECT *
+        FROM votes
+        WHERE feedback_id = $1 AND user_id = $2;
+    `;
+    db.query(query1, [itemId, user_id], (err, response) => {
+        if (err)
+                return next({
+                    log: `feedbackController.edit Query 1 ERROR: ${err}`,
+                    message: {
+                        err: "Inappropriate data types entered.",
+                    },
+                });
+        if (response.rows[0]) {
+            return next({
+                log: `feedbackController.edit SELECT votes ERROR: ${err}`,
+                message: {
+                    err: "Already voted for this post.",
+                },
+            });
+        } else {
+            const query2 = `
+                INSERT INTO votes (feedback_id, user_id)
+                VALUES ($1, $2);
+            `;
+            db.query(
+                query2,
+                [itemId, user_id],
+                (err, response) => {
+                    if (err)
+                        return next({
+                            log: `feedbackController.edit Query 2 ERROR: ${err}`,
+                            message: {
+                                err: "Inappropriate data types entered.",
+                            },
+                        });
+                    else {
+                        const query3 = `
+                            UPDATE feedback
+                            SET votes = $1
+                            WHERE _id = $2
+                            RETURNING votes;
+                        `;
+                        db.query(
+                            query3,
+                            [votes, itemId],
+                            (err, response) => {
+                                if (err)
+                                    return next({
+                                        log: `feedbackController.edit Query 3 ERROR: ${err}`,
+                                        message: {
+                                            err: "Inappropriate data types entered.",
+                                        },
+                                    });
+                                if (response.rows[0]) {
+                                    res.locals.votes = response.rows[0].votes;
+                                    return next()
+                                } else
+                                    return next({
+                                        log: `feedbackController.edit INSERT INTO ERROR: ${err}`,
+                                        message: {
+                                            err: "Unable to locate votes in database.",
+                                        },
+                                    })
+                            }
+                        )
+                    }
+                }
+            )
+        }
+    })
+};
 
 feedbackController.delete = (req, res, next) => {
     const post_id = req.params.id;

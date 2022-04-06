@@ -21,6 +21,10 @@ html, body {
   line-height: 23px;
   background-color: $lilac;
   color: $navy;
+  padding: 0 5px;
+  &::-webkit-scrollbar{
+    display: none;
+  }
   h1 {
     font-size: 24px;
     line-height: 35px;
@@ -205,6 +209,7 @@ aside {
   display: flex;
   flex-direction: column;
   width: 825px;
+  height: 88vh;
   .navBar {
     background-color: $darknavy;
     color: $white;
@@ -215,11 +220,20 @@ aside {
     display: flex;
     justify-content: space-between;
   }
+  .feedbackItemsContainer {
+    overflow-y: scroll;
+    // height: 78vh;
+    &::-webkit-scrollbar{
+      display: none;
+      // width: 15px;
+    }
+  }
   .feedbackItem {
     background-color: $white;
     color: $darknavy;
     border-radius: 10px;
     padding: 20px;
+    margin-bottom: 20px;
     #itemDescription {
       font-size: 16px;
       line-height: 23px;

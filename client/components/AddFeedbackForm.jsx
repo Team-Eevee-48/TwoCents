@@ -1,32 +1,45 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import * as actions from '../redux/actions/actions';
 
 const mapStateToProps = state => ({
-  username: state.users.username,
-  title: state.feedback.title,
-  description: state.feedback.description,
-  votes: state.feedback.votes,
-  tags: state.feedback.tags,
+  user_id: state.user.user_id,
+  // title: state.feedback.title,
+  // description: state.feedback.description,
+  // votes: state.feedback.votes,
+  category: state.feedback.category,
+  // submissionStatus: state.feedback.submissionStatus,
 })
 
 
 const mapDispatchToProps = dispatch => ({
-  addFeedbackThunk: ({username, title, description, votes, tags}) => dispatch(actions.addFeedbackThunk({username, title, description, votes, tags}))
+  addFeedbackActionCreator: (user_id, title, description, category) => dispatch(actions.addFeedbackActionCreator(user_id, title, description, category))
 })
 
-const AddFeedbackForm = (props) => {
+const AddFeedbackForm = props => {
+  useEffect(() => {
+    console.log('feedbackForm', props)
+  }, [props])
+  
   const handleClick = e => {
-    const username = props.username;
+    console.log('form submitted props', props)
+    const user_id = props.user_id;
     const title = document.querySelector('input[name="feedbackTitle"]').value.trim();
     const description = document.querySelector('input[name="description"]').value.trim();
-    const tags = document.querySelector('select').value
-    props.addFeedbackThunk(username, title, description, 0, tags);
+    const category = document.querySelector('select').value
+    props.addFeedbackActionCreator(user_id, title, description, category);
+    
+    const navigate = useNavigate();
+    setTimeout(() => navigate('/feedback'), 100);
   }
   
-  const options = props.tags.map(tag => {
-    return <option value={tag}>{tag}</option>
+  const options = props.category.map((category, i) => {
+    return <option value={category} key={i}>{category}</option>
   });
+
+  let submissionReport
+  if (props.submissionStatus === 'false') submissionReport = 'Apologies, failed to submit feedback.'
 
   return (
     <div className="feedbackForm">
@@ -49,6 +62,7 @@ const AddFeedbackForm = (props) => {
         <Link to="/"><button className="cancelBtn">Cancel</button></Link>
         <button className="submitBtn" onClick={handleClick}>Submit Feedback</button>
       </div>
+      <label>{submissionReport}</label>
     </div>
 )};
 

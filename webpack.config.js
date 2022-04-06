@@ -13,7 +13,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "Development",
+            title: "Product Feedback",
             template: "./client/index.html",
         }),
     ],
@@ -44,8 +44,11 @@ module.exports = {
             publicPath: "/dist",
             directory: path.resolve(__dirname, "dist"),
         },
-        // proxy: {
-        //     "/": "http://localhost:3000",
-        // },
+        historyApiFallback: true,
+        proxy: {
+            "/api": {
+                target: "http://localhost:3000",
+                pathRewrite: {'^/api': ''}
+            },
     },
-};
+}};
