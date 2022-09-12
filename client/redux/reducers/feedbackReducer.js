@@ -11,7 +11,7 @@ const feedbackReducer = (state = initialState, action) => {
   let description;
   const category = [...state.category];
   const tagFilters = [...state.tagFilters];
-  const feedbackItems = [...state.feedbackItems]
+  const feedbackItems = [...state.feedbackItems];
 
   switch (action.type) {
     case types.GET_FEEDBACK: 
@@ -35,8 +35,8 @@ const feedbackReducer = (state = initialState, action) => {
 
     case types.UP_VOTE: {
       const { votes, _id } = action.payload
-      console.log(feedbackItems);
-      console.log('upvote reducer called', votes, _id);
+      console.log('feedback:', feedbackItems);
+      console.log('upvote reducer called!!', votes, _id);
       const cb = (el) => {
         if(el._id === _id){
           el.votes = votes

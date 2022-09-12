@@ -26,13 +26,13 @@ const FeedbackContainer = (props) => {
   const [items, setItems ] = useState(props.feedbackItems)
 
   useEffect(() => {
-    console.log(props.feedbackItems);
+    // console.log(props.feedbackItems);
     setItems(props.feedbackItems)
   }, [props])
   
   
-  const feedbackItemArray = items.map(item => {
-    return <FeedbackItem info={item} key={item.title}/>
+  const feedbackItemArray = items.map((item, idx) => {
+    return <FeedbackItem info={item} key={item.title} index={idx}/>
   });
 
   // useEffect(() => {

@@ -25,12 +25,12 @@ const mapDispatchToProps = (dispatch) => ({
 const AppWrapper = (props) => {
   props.getUser()
   return (
-  <Router>
-    <section className='content'>
-      <App />
-    </section>
-  </Router>
-)
-
+    <Router>
+      <section className='content'>
+        <App />
+      </section>
+    </Router>
+  )
 }
+
 export default connect(null,mapDispatchToProps)(AppWrapper);

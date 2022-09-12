@@ -1,14 +1,14 @@
-import * as types from '../constants/actionTypes';
+import * as types from "../constants/actionTypes";
 
 const initialState = {
-  username: '',
+  username: "",
   user_id: 0,
-  first_name: '',
-  last_name: '',
-  email: '',
-  failedAuthStatement: '',
+  first_name: "",
+  last_name: "",
+  email: "",
+  failedAuthStatement: "",
   authStatus: false,
-}
+};
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -18,28 +18,30 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         username,
-        user_id: action.payload._id,
+        user_id,
         authStatus: true,
-      }
-      
+      };
+
     case types.UNSUCCESSFUL_AUTH:
-      return { 
+      return {
         ...state,
-        failedAuthStatement: 'Authentication failed. Please try again.'
-      }
+        failedAuthStatement: "Authentication failed. Please try again.",
+      };
+
     case types.GET_USER: {
-        const { username, user_id } = action.payload;
+      const { username, user_id } = action.payload;
       // console.log('successful getUsers from reducer', action.payload)
       return {
         ...state,
         username,
-        user_id: action.payload._id,
+        user_id,
         authStatus: true,
-      }
+      };
     }
+
     default:
       return state;
   }
-}
+};
 
 export default usersReducer;
